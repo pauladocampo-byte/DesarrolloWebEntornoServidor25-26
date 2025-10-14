@@ -1,0 +1,24 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IList<Forum.Models.Mensaje>
+
+@{
+    ViewData["Title"] = "Browse";
+}
+
+<h1>Mensajes del foro</h1>
+
+@if (Model.Count == 0)
+{
+    <div>No hay mensajes para este foro.</div>
+}
+else
+{
+    <ul>
+        @foreach (var m in Model)
+        {
+            <li><strong>@m.Autor:</strong> @m.Texto</li>
+        }
+    </ul>
+}
