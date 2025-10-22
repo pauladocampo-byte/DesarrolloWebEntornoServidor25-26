@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogSimple.Migrations
 {
     [DbContext(typeof(BlogContext))]
-    [Migration("20251013175052_Initial")]
-    partial class Initial
+    [Migration("20251020154748_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,6 +55,26 @@ namespace BlogSimple.Migrations
                     b.HasKey("PostId");
 
                     b.ToTable("Posts");
+
+                    b.HasData(
+                        new
+                        {
+                            PostId = 1,
+                            Author = "Paula Docampo",
+                            Code = "Esta es la primera entrada: practicando MVC y Razor.",
+                            Date = new DateTime(2024, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Text = "This is the first post on my blog. Stay tuned for more content!",
+                            Title = "Bienvenidos al Blog"
+                        },
+                        new
+                        {
+                            PostId = 2,
+                            Author = "Paula Docampo",
+                            Code = "Explorando más sobre ASP.NET Core.",
+                            Date = new DateTime(2024, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Text = "In this post, we will explore more features of ASP.NET Core.",
+                            Title = "Segunda Entrada"
+                        });
                 });
 #pragma warning restore 612, 618
         }

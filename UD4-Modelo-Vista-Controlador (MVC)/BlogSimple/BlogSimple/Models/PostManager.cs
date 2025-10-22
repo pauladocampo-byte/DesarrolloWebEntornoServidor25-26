@@ -25,10 +25,31 @@
             return _context.Posts.Find(id);
         }
 
-        public List<Post> GetPostByDate( int year, int month)
+        public List<Post> GetPostByDate(int year, int month)
         {
             return _context.Posts
                 .Where(p => p.Date.Year == year && p.Date.Month == month).ToList();
+        }
+
+        public void AddPost(Post post)
+        {
+            _context.Posts.Add(post);
+            _context.SaveChanges();
+        }
+
+        public void DeletePost(int id)
+        {
+            var post = _context.Posts.Find(id);
+            if (post != null)
+            {
+                _context.Posts.Remove(post);
+                _context.SaveChanges();
+            }
+        }
+        public void UpdatePost(Post post)
+        {
+            _context.Posts.Update(post);
+            _context.SaveChanges();
         }
     }
 }
