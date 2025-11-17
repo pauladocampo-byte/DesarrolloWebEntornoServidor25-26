@@ -1,0 +1,18 @@
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<h1 class="mt-4 mb-3">Práctica 4 - Attribute routing + Areas</h1>
+
+<p>Puedes probar estas URLs:</p>
+
+<ul>
+    <li><code>/</code> → <strong>ProductsController.Index()</strong></li>
+    <li><code>/Products/All</code> → <strong>ProductsController.Index()</strong></li>
+    <li><code>/Products/Sony-Vaio</code> → <strong>ProductsController.View("Sony-Vaio")</strong></li>
+    <li><code>/Products/Category/Ultrabooks</code> → <strong>ProductsController.ByCategory("Ultrabooks")</strong></li>
+    <li><code>/Friends</code> → <strong>FriendsController ORIGINAL - Index()</strong></li>
+    <li><code>/Friends/Edit/23</code> → <strong>FriendsController ORIGINAL - Edit(23)</strong></li>
+    <li><code>/Friends/View/John</code> → <strong>FriendsController NUEVO (Area Special) - View("John")</strong></li>
+    <li><code>/Friends/ViewOriginal/John</code> → <strong>FriendsController ORIGINAL - View("John")</strong></li>
+</ul>

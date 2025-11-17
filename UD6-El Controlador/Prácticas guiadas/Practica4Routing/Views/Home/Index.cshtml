@@ -1,0 +1,18 @@
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<h1 class="mt-4 mb-3">Práctica 4 - Sistema de routing</h1>
+
+<p>Puedes usar el menú superior para probar las distintas rutas:</p>
+
+<ul>
+    <li>/Friends → FriendsController ORIGINAL - Index()</li>
+    <li>/Friends/Edit/23 → FriendsController ORIGINAL - Edit(23)</li>
+    <li>/Friends/View/John → FriendsController NUEVO (Area Special)</li>
+    <li>/Friends/ViewOriginal/John → FriendsController ORIGINAL - View('John')</li>
+    <li>/Products/All → ProductsController.Index()</li>
+    <li>/Products/Sony-Vaio → ProductsController.View('Sony-Vaio')</li>
+    <li>/Products/Category/Ultrabooks → ProductsController.ByCategory('Ultrabooks')</li>
+    <li>/ → ruta por defecto → ProductsController.Index()</li>
+</ul>
