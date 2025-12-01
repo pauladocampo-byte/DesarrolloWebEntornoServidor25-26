@@ -1,0 +1,90 @@
+﻿@model CineMontecasteloMvc.ViewModels.PeliculaEditViewModel
+
+@{
+    ViewData["Title"] = "Editar película";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h4>PeliculaEditViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @*    <form asp-action="Edit"> *@
+        <!-- Cambios mínimos: method="post", enctype, AntiForgeryToken, campo file y checkboxes de salas -->
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Titulo" class="control-label"></label>
+                <input asp-for="Titulo" class="form-control" />
+                <span asp-validation-for="Titulo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descripcion" class="control-label"></label>
+                <input asp-for="Descripcion" class="form-control" />
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Genero" class="control-label"></label>
+                <input asp-for="Genero" class="form-control" />
+                <span asp-validation-for="Genero" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Anio" class="control-label"></label>
+                <input asp-for="Anio" class="form-control" />
+                <span asp-validation-for="Anio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Duracion" class="control-label"></label>
+                <input asp-for="Duracion" class="form-control" />
+                <span asp-validation-for="Duracion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Precio" class="control-label"></label>
+                <input asp-for="Precio" class="form-control" type="number" step="0.01" />
+                <span asp-validation-for="Precio" class="text-danger"></span>
+            </div>
+            <!-- Campo para subir nueva foto (name debe coincidir con parámetro formFile) -->
+            <div class="form-group">
+                <label class="control-label">Nueva foto (opcional)</label>
+                <input type="file" name="formFile" class="form-control" />
+            </div>
+            <!-- Lista de salas con checkboxes -->
+            <div class="form-group">
+                <label class="control-label">Salas</label>
+                @if (Model.Salas != null && Model.Salas.Any())
+                {
+                    @for (int i = 0; i < Model.Salas.Count; i++)
+                    {
+                        <div class="form-check">
+                            <input type="hidden" asp-for="Salas[@i].Id" />
+                            <input class="form-check-input" asp-for="Salas[@i].Asignada" />
+                            <label class="form-check-label" asp-for="Salas[@i].Asignada">@Model.Salas[i].Descripcion</label>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>No hay salas configuradas.</p>
+                }
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

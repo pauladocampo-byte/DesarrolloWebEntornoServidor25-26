@@ -1,0 +1,57 @@
+﻿@model IEnumerable<CineMontecasteloMvc.Models.Pelicula>
+
+@{
+    // ViewData permite pasar datos simples del controlador a la vista
+    ViewData["Title"] = "Cartelera";
+    // Layout define el diseño común (cabecera, menú, pie) para todas las vistas
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>@ViewData["Title"]</h2>
+
+<!-- Contenedor de Bootstrap para organizar tarjetas en filas/columnas -->
+<div class="row">
+    @foreach (var peli in Model)
+    {
+        <!-- Cada película ocupa 4 columnas en pantallas medianas (3 tarjetas por fila) -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                @* Si la película tiene foto, mostramos la imagen en la parte superior de la tarjeta *@
+                @if (peli.Foto != null)
+                {
+                    <!-- La imagen se obtiene llamando a la acción Imagen del controlador Peliculas, pasando el id -->
+                    <img class="card-img-top" src="@Url.Action("Imagen", "Peliculas", new { id = peli.Id })" alt="@peli.Titulo" />
+                }
+                <div class="card-body">
+                    <!-- Título de la película -->
+                    <h5 class="card-title">@peli.Titulo</h5>
+                    <!-- Descripción de la película -->
+                    <p class="card-text">@peli.Descripcion</p>
+                    <!-- Precio formateado con dos decimales y símbolo de euro -->
+                    <p><strong>@peli.Precio.ToString("0.00") €</strong></p>
+
+
+                      <!-- Formulario para añadir la película a la cesta -->
+                    <form asp-controller="Cesta" asp-action="Agregar" method="post" class="d-flex">
+                        <!-- Campo oculto con el id de la película -->
+                        <input type="hidden" name="peliculaId" value="@peli.Id" />
+                        <!-- Selector de cantidad a añadir -->
+                        <input type="number" name="cantidad" class="form-control me-2" value="1" min="1" />
+                        <!-- Botón de envío -->
+                        <button type="submit" class="btn btn-primary">Añadir a la cesta</button>
+                    </form>
+
+                    @* Si hay salas asociadas, se muestran sus nombres separados por comas *@
+                    @if (peli.Salas != null && peli.Salas.Any())
+                    {
+                        <p class="mt-2">
+                            <strong>Salas:</strong>
+                            @string.Join(", ", peli.Salas.Select(s => s.Nombre))
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
